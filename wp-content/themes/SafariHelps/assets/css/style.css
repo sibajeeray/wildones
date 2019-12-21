@@ -1458,6 +1458,7 @@ margin:0;
 .about-tour .rt-block #jsScroll.bottom-section{
   margin:0; 
   margin-bottom: 30px;
+  max-height: 400px;
   height: auto; 
 }
 
@@ -1672,6 +1673,10 @@ margin:0;
   padding:90px 0 70px;
 }
 
+.favourite-hotel #accd-desc {
+  text-align: left;
+}
+
 .favourite-hotel h2{
   font-family: 'CAAires';
   font-size:72px;
@@ -1702,7 +1707,7 @@ margin:0;
 }
 
 .favourite-hotel .bottom-panel .section{
-  margin:0 0 60px;
+  margin:0 0 80px;
 }
 
 .favourite-hotel .bottom-panel .section:last-child{
