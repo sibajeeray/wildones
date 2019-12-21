@@ -74,7 +74,7 @@
   <div class="about-tour m-0">
     <div class="container">
       <div class="row">
-        <div class="col-md-7 "> <!--  align-self-center -->
+        <div id="about-left" class="col-md-7 "> <!--  align-self-center -->
           <div class="lt-block m-0">
             <div class="upper-text">
               <h2 class="position-relative">ABOUT <strong>YOUR TRIP</strong></h2>
@@ -87,10 +87,10 @@
             </div>
           </div>
         </div>
-        <div class="col-md-5">
+        <div id="about-right" class="col-md-5">
           <div class="rt-block bg-white m-0">
             <h3 class="m-0">tour Itinenaries</h3>
-            <div class="bottom-section position-relative">
+            <div id="jsScroll" class="bottom-section position-relative">
               <div class="thumb">
                 <h4>FLIGHT</h4>
                 <h5>(Please remember to book separately)</h5>

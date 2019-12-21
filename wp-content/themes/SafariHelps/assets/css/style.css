@@ -1452,15 +1452,13 @@ margin:0;
   color:#636363;
   line-height:35px;
   letter-spacing:.04em;
-  padding:0 0 5px;
+  padding:0 0 25px;
 }
 
-.about-tour .rt-block .bottom-section{
+.about-tour .rt-block #jsScroll.bottom-section{
   margin:0; 
-  padding:28px 0 60px;
-  height: 900px;
-  overflow: auto;
-  scrollbar-width: none;
+  margin-bottom: 30px;
+  height: auto; 
 }
 
 .about-tour .rt-block .bottom-section:before{
@@ -1475,7 +1473,7 @@ margin:0;
 
 .about-tour .rt-block .thumb{
   background:url(../images/round-icon01.png) no-repeat 15px top;
-  margin:0 0 18px;
+  margin:0 0 22px;
   padding:0 0 0 60px;
   position:relative;
   z-index:999;
@@ -1492,7 +1490,7 @@ margin:0;
   line-height:22px;
   letter-spacing:.24em;
   margin:0;
-  padding:0 0 5px;
+  padding:0 0 8px;
 }
 
 .about-tour .rt-block .thumb h5{

@@ -58,20 +58,19 @@ $(document).ready(function () {
 		}
 	});
 
-	$(document).ready(function ($) {
-		$('.loop').owlCarousel({
-			center: true,
-			items: 2,
-			nav: true,
-			loop: true,
-			responsiveClass: true,
-			responsive: {
-				600: {
-					items: 2
-				}
+	$('.loop').owlCarousel({
+		center: true,
+		items: 2,
+		nav: true,
+		loop: true,
+		responsiveClass: true,
+		responsive: {
+			600: {
+				items: 2
 			}
-		});
+		}
 	});
+
 
 	if ($(window).width() <= 767) {
 		$(".loop").owlCarousel({
@@ -140,6 +139,11 @@ $(document).ready(function () {
 			}
 		}
 	});
+
+
+	var scrollHeight = $('#about-left .lt-block').height()-100;
+	$('#jsScroll').css({maxHeight: scrollHeight});
+	$('#jsScroll').jScrollPane();
 
 
 });
