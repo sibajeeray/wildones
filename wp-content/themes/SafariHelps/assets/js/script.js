@@ -1,11 +1,6 @@
 var $ = jQuery.noConflict();
 $(document).ready(function () {
 	
-	$(function()
-	{
-		$('.bottom-section').jScrollPane();
-	});
-
 
 	prepareMobileMenu();
 
