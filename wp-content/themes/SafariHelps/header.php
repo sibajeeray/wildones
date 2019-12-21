@@ -20,21 +20,7 @@
 // 	type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 	</script>
 	<!--End of Zendesk Chat Script-->
-	
-	<!-- styles needed by jScrollPane -->
-	<link type="text/css" href="style/jquery.jscrollpane.css" rel="stylesheet" media="all" />
 
-	<!-- latest jQuery direct from jQuery CDN -->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js">
-	</script>
-
-	<!-- the mousewheel plugin - optional to provide mousewheel support -->
-	<script type="text/javascript" src="script/jquery.mousewheel.js"></script>
-
-	<!-- the jScrollPane script -->
-	<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
-	
-	
 	
 </head>
 <body <?php body_class(); ?>>
