@@ -4324,3 +4324,11 @@ ______________________________________________*/
 	color: #fff;
 	background-color: #edc4ca;
 }
+
+#booking-page.modal .date-sec .no_trips {
+  padding-top: 50px;
+}
+#booking-page.modal .date-sec .no_trips h3 {
+  color: #f03577;
+  font-family: 'CAAires';
+}

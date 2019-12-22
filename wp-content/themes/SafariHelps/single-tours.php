@@ -243,7 +243,7 @@
   <!-- Included-section End -->
 
   <!-- Tours-panel Start -->
-  <!-- <div class="tours-panel">
+  <div class="tours-panel">
     <div class="container">
       <h2 class="text-center m-0">our tours</h2>
       <div class="thumb-panel m-0 p-0 position-relative">
@@ -302,7 +302,7 @@
 
       </div>
     </div>
-  </div> -->
+  </div>
   <!-- Tours-panel End -->
 
   <!-- Favourite-hotel Start -->
@@ -579,95 +579,97 @@
             <ul class="trip-lists">
 
               <?php
-                  global $wpdb;
-                  $table = $wpdb->prefix.'trip_items';
-                  $tour_id = get_the_ID();
-                  $trips_list = $wpdb->get_results(
-                    "SELECT CONCAT(MONTH(start_date),'_', YEAR(start_date)) as month_year, 
-                    GROUP_CONCAT(
-                    start_date, ':', 
-                    duration, ':', 
-                    total_seats, ':',
-                    booked_seats, ':',
-                    price, ':',
-                    advance_price
-                    ) as data 
-                    FROM $table where tour_id = $tour_id AND disabled = 'false'
-                    GROUP BY YEAR(start_date), MONTH(start_date)"
-                    , ARRAY_A
-                  );
+                global $wpdb;
+                $table = $wpdb->prefix.'trip_items';
+                $tour_id = get_the_ID();
+                $trips_list = $wpdb->get_results(
+                  "SELECT CONCAT(MONTH(start_date),'_', YEAR(start_date)) as month_year, 
+                  GROUP_CONCAT(
+                  start_date, ':', 
+                  duration, ':', 
+                  total_seats, ':',
+                  booked_seats, ':',
+                  price, ':',
+                  advance_price
+                  ) as data 
+                  FROM $table where tour_id = $tour_id AND disabled = 'false'
+                  GROUP BY YEAR(start_date), MONTH(start_date)"
+                  , ARRAY_A
+                );
 
+                if($trips_list && $trips_list[0]){
+                  foreach($trips_list as $trip_month){
+                    $month_year =  explode("_",$trip_month['month_year']);
+                    $year = $month_year[1];
 
-                  // echo "<pre>";
-                  // print_r($trips_list);
-                  // echo "</pre>";
+                    $month_no = $month_year[0];
+                    $dateObj   = DateTime::createFromFormat('!m', $month_no);
+                    $month_name = $dateObj->format('F');
 
-                  if($trips_list && $trips_list[0]){
-                    foreach($trips_list as $trip_month){
-                      $month_year =  explode("_",$trip_month['month_year']);
-                      $year = $month_year[1];
+                    $trip_data =  explode(",",$trip_month['data']);
 
-                      $month_no = $month_year[0];
-                      $dateObj   = DateTime::createFromFormat('!m', $month_no);
-                      $month_name = $dateObj->format('F');
+                    $trip_array = array();
 
-                      $trip_data =  explode(",",$trip_month['data']);
-
-                      $trip_array = array();
-
-                      foreach($trip_data as $trip_info){
-                        $trip = array();
-                        $trip_data_set = explode(":", $trip_info);
-                        $trip['start_date'] = $trip_data_set[0];
-                        $trip['no_of_days'] = $trip_data_set[1];
-                        $trip['total_seats'] = $trip_data_set[2];
-                        $trip['booked_seats'] = $trip_data_set[3];
-                        $trip['price'] = $trip_data_set[4];
-                        $trip['advance_price'] = $trip_data_set[5];
-                        array_push($trip_array, $trip);
-                      }
-
-                      ?>
-
-                        <li>
-
-                          <p class="date-button collapsed" data-toggle="collapse" data-target="#<?php echo $month_name."-".$year ?>"><?php echo $month_name.", ".$year ?></p>
-
-                          <div id="<?php echo $month_name."-".$year ?>" class="collapse trips">
-
-                          <?php 
-                            foreach($trip_array as $trip){
-
-                              $startDate = date('D d M', strtotime(date($trip["start_date"])));
-                              $endDateRaw =Date('Y-m-d', strtotime($trip["start_date"]."+".$trip["no_of_days"]." days"));
-                              $endDate = date('D d M', strtotime($endDateRaw));
-                              $leftSeats = $trip["total_seats"]- $trip["booked_seats"];
-                  
-                              ?>
-
-                                <div class="trip row">
-                                  <div class="col-md-5 align-self-center">
-                                    <h5><?php echo $startDate . " - ". $endDate; ?> </h5>
-                                    <p class="seats"><?php echo $leftSeats. " seats Left"?></p>
-                                  </div>
-                                  <div class="col-md-4 align-self-center">
-                                    <p>Total £<?php echo $trip["price"]; ?></p>
-                                    <p>£<?php echo $trip["advance_price"]; ?> deposite</p>
-                                  </div>
-                                  <div class="col-md-3 align-self-center"><a href="#" class="book-link <?php if($leftSeats <= 0) echo "disabled" ?>" ><span class="book-btn">Book Now</span></a></div>
-                                </div>
-
-                              <?php
-                            }
-                          ?>
-
-                          </div>
-
-                        </li>
-
-                      <?php
+                    foreach($trip_data as $trip_info){
+                      $trip = array();
+                      $trip_data_set = explode(":", $trip_info);
+                      $trip['start_date'] = $trip_data_set[0];
+                      $trip['no_of_days'] = $trip_data_set[1];
+                      $trip['total_seats'] = $trip_data_set[2];
+                      $trip['booked_seats'] = $trip_data_set[3];
+                      $trip['price'] = $trip_data_set[4];
+                      $trip['advance_price'] = $trip_data_set[5];
+                      array_push($trip_array, $trip);
                     }
+
+                    ?>
+
+                      <li>
+
+                        <p class="date-button collapsed" data-toggle="collapse" data-target="#<?php echo $month_name."-".$year ?>"><?php echo $month_name.", ".$year ?></p>
+
+                        <div id="<?php echo $month_name."-".$year ?>" class="collapse trips">
+
+                        <?php 
+                          foreach($trip_array as $trip){
+
+                            $startDate = date('D d M', strtotime(date($trip["start_date"])));
+                            $endDateRaw =Date('Y-m-d', strtotime($trip["start_date"]."+".$trip["no_of_days"]." days"));
+                            $endDate = date('D d M', strtotime($endDateRaw));
+                            $leftSeats = $trip["total_seats"]- $trip["booked_seats"];
+                
+                            ?>
+
+                              <div class="trip row">
+                                <div class="col-md-5 align-self-center">
+                                  <h5><?php echo $startDate . " - ". $endDate; ?> </h5>
+                                  <p class="seats"><?php echo $leftSeats. " seats Left"?></p>
+                                </div>
+                                <div class="col-md-4 align-self-center">
+                                  <p>Total £<?php echo $trip["price"]; ?></p>
+                                  <p>£<?php echo $trip["advance_price"]; ?> deposite</p>
+                                </div>
+                                <div class="col-md-3 align-self-center"><a href="#" class="book-link <?php if($leftSeats <= 0) echo "disabled" ?>" ><span class="book-btn">Book Now</span></a></div>
+                              </div>
+
+                            <?php
+                          }
+                        ?>
+
+                        </div>
+
+                      </li>
+
+                    <?php
                   }
+                }
+                else {
+                  ?>
+                    <div class="no_trips text-center">
+                      <h3>SORRY :) NO TRIP AVAILABLE NOW FOR THIS TOUR</h3>
+                    </div>
+                  <?php
+                }
 
               ?>
             </ul>
