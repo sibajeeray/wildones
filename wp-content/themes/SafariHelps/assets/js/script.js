@@ -140,10 +140,11 @@ $(document).ready(function () {
 		}
 	});
 
-
-	var scrollHeight = $('#about-left .lt-block').height()-100;
-	$('#jsScroll').css({height: scrollHeight});
-	$('#jsScroll').jScrollPane();
+    $(window).load(function(){
+	    var scrollHeight = $('#about-left .lt-block').height()-140;
+	    $('#jsScroll').css({height: scrollHeight});
+	    $('#jsScroll').jScrollPane();
+    });
 
 
 });
