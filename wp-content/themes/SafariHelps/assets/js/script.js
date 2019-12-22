@@ -142,7 +142,7 @@ $(document).ready(function () {
 
 
 	var scrollHeight = $('#about-left .lt-block').height()-100;
-	$('#jsScroll').css({maxHeight: scrollHeight});
+	$('#jsScroll').css({height: scrollHeight});
 	$('#jsScroll').jScrollPane();
 
 

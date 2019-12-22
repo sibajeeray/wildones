@@ -576,56 +576,100 @@
 
           <div class="date-sec">
 
-            <ul class="buttons">
-              <li>
-                <p class="date-button collapsed" data-toggle="collapse" data-target="#january-2020">January, 2020</p>
-                <div id="january-2020" class="collapse trips">
-                  <div class="trip row">
-                    <div class="col-md-5 align-self-center">
-                      <h5>Sun 15 Jan - Thurseday 15 Jan </h5>
-                    </div>
-                    <div class="col-md-4 align-self-center">
-                      <p>Total £1200</p>
-                      <p>£200 deposite</p>
-                    </div>
-                    <div class="col-md-3 align-self-center"><a href="#"><span class="book-btn">Book Now</span></a></div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <p class="date-button collapsed" data-toggle="collapse" data-target="#february-2020">February, 2020</p>
-                <div id="february-2020" class="collapse trips">
-                  <div class="trip row">
-                    <div class="col-md-5"></div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-3"><span class="book-btn">Book Now</div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <p class="date-button collapsed" data-toggle="collapse" data-target="#march-2020">March, 2020</p>
-                <div id="march-2020" class="collapse trips">
-                  <div class="trip">
-                    <p>This is trip of March 2020</p>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <p class="date-button collapsed" data-toggle="collapse" data-target="#april-2020">April, 2020</p>
-                <div id="april-2020" class="collapse trips">
-                  <div class="trip">
-                    <p>This is trip of April 2020</p>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <p class="date-button collapsed" data-toggle="collapse" data-target="#may-2020">May, 2020</p>
-                <div id="may-2020" class="collapse trips">
-                  <div class="trip">
-                    <p>This is trip of May 2020</p>
-                  </div>
-                </div>
-              </li>
+            <ul class="trip-lists">
+
+              <?php
+                  global $wpdb;
+                  $table = $wpdb->prefix.'trip_items';
+                  $tour_id = get_the_ID();
+                  $trips_list = $wpdb->get_results(
+                    "SELECT CONCAT(MONTH(start_date),'_', YEAR(start_date)) as month_year, 
+                    GROUP_CONCAT(
+                    start_date, ':', 
+                    duration, ':', 
+                    total_seats, ':',
+                    booked_seats, ':',
+                    price, ':',
+                    advance_price
+                    ) as data 
+                    FROM $table where tour_id = $tour_id AND disabled = 'false'
+                    GROUP BY YEAR(start_date), MONTH(start_date)"
+                    , ARRAY_A
+                  );
+
+
+                  // echo "<pre>";
+                  // print_r($trips_list);
+                  // echo "</pre>";
+
+                  if($trips_list && $trips_list[0]){
+                    foreach($trips_list as $trip_month){
+                      $month_year =  explode("_",$trip_month['month_year']);
+                      $year = $month_year[1];
+
+                      $month_no = $month_year[0];
+                      $dateObj   = DateTime::createFromFormat('!m', $month_no);
+                      $month_name = $dateObj->format('F');
+
+                      $trip_data =  explode(",",$trip_month['data']);
+
+                      $trip_array = array();
+
+                      foreach($trip_data as $trip_info){
+                        $trip = array();
+                        $trip_data_set = explode(":", $trip_info);
+                        $trip['start_date'] = $trip_data_set[0];
+                        $trip['no_of_days'] = $trip_data_set[1];
+                        $trip['total_seats'] = $trip_data_set[2];
+                        $trip['booked_seats'] = $trip_data_set[3];
+                        $trip['price'] = $trip_data_set[4];
+                        $trip['advance_price'] = $trip_data_set[5];
+                        array_push($trip_array, $trip);
+                      }
+
+                      ?>
+
+                        <li>
+
+                          <p class="date-button collapsed" data-toggle="collapse" data-target="#<?php echo $month_name."-".$year ?>"><?php echo $month_name.", ".$year ?></p>
+
+                          <div id="<?php echo $month_name."-".$year ?>" class="collapse trips">
+
+                          <?php 
+                            foreach($trip_array as $trip){
+
+                              $startDate = date('D d M', strtotime(date($trip["start_date"])));
+                              $endDateRaw =Date('Y-m-d', strtotime($trip["start_date"]."+".$trip["no_of_days"]." days"));
+                              $endDate = date('D d M', strtotime($endDateRaw));
+                              $leftSeats = $trip["total_seats"]- $trip["booked_seats"];
+                  
+                              ?>
+
+                                <div class="trip row">
+                                  <div class="col-md-5 align-self-center">
+                                    <h5><?php echo $startDate . " - ". $endDate; ?> </h5>
+                                    <p class="seats"><?php echo $leftSeats. " seats Left"?></p>
+                                  </div>
+                                  <div class="col-md-4 align-self-center">
+                                    <p>Total £<?php echo $trip["price"]; ?></p>
+                                    <p>£<?php echo $trip["advance_price"]; ?> deposite</p>
+                                  </div>
+                                  <div class="col-md-3 align-self-center"><a href="#" class="book-link <?php if($leftSeats <= 0) echo "disabled" ?>" ><span class="book-btn">Book Now</span></a></div>
+                                </div>
+
+                              <?php
+                            }
+                          ?>
+
+                          </div>
+
+                        </li>
+
+                      <?php
+                    }
+                  }
+
+              ?>
             </ul>
           </div>
 

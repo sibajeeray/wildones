@@ -1458,8 +1458,8 @@ margin:0;
 .about-tour .rt-block #jsScroll.bottom-section{
   margin:0; 
   margin-bottom: 30px;
-  max-height: 400px;
-  height: auto; 
+  /* max-height: 400px; */
+  height: 400px; 
 }
 
 .about-tour .rt-block .bottom-section:before{
@@ -4246,34 +4246,81 @@ ______________________________________________*/
 	padding: 5px 0 15px 0;
 }
 #booking-page.modal .date-sec > ul > li .trips .trip {
-	padding: 20px 5px;
-	margin-right: 10px;
-    margin-left: 10px;
-	border: 2px solid #ddd;
+  padding: 20px 5px;
+  margin: 0 10px 2px 10px;
+  border: 2px solid #ddd;
+  text-align: center;
+}
+
+#booking-page.modal .date-sec .trip-lists {
+  padding-bottom: 50px;
+}
+#booking-page.modal .date-sec > ul > li .trips .trip [class*='col-'] {
+  padding-bottom: 10px;
 }
 #booking-page.modal .date-sec > ul > li .trips .trip h5 {
 	margin-bottom: 0;
+}
+#booking-page.modal .date-sec > ul > li .trips .trip p.seats {
+  padding-top : 6px;
+  padding-left: 10px;
+  color: #636363;
+  font-size: 16px;
 }
 #booking-page.modal .date-sec > ul > li .trips .trip p {
 	font-weight: 500;
 }
 #booking-page.modal .date-sec > ul > li .trips .trip a {
-	display: block;
-	text-align: center;
+	display: inline-block;
+	text-align: right;
 	color: #000;
 }
 #booking-page.modal .date-sec > ul > li .trips .trip a:hover {
 	text-decoration: none;
 }
+#booking-page.modal .date-sec > ul > li .trips .trip a.disabled {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: #d1cfcf;
+}
+#booking-page.modal .date-sec > ul > li .trips .trip a.disabled span.book-btn {
+  border: 1px solid rgb(207, 205, 205);
+}
 #booking-page.modal .date-sec > ul > li .trips .trip span.book-btn {
+	padding: 8px 8px;
+	font-weight: bold;
+	font-size: 14px;
+	text-transform:uppercase;
+	border: 1px solid #000;
+  margin: 0 5px;
+	transition: all 0.3s ease;
+}
+@media only screen and (min-width: 992px){
+  #booking-page.modal .date-sec > ul > li .trips .trip span.book-btn {
+    padding: 8px 20px;
+    font-size: 18px;
+  }
+  #booking-page.modal .date-sec > ul > li .trips .trip {
+    text-align: left;
+  }
+  #booking-page.modal .date-sec > ul > li .trips .trip [class*='col-'] {
+    padding-bottom: 0;
+  }
+}
+
+
+/* #booking-page.modal .date-sec > ul > li .trips .trip span.book-btn {
 	padding: 8px 20px;
 	font-weight: bold;
 	font-size: 18px;
 	text-transform:uppercase;
 	border: 1px solid #000;
-    margin: 0 5px;
+  margin: 0 5px;
 	transition: all 0.3s ease;
-}
+} */
+
+
 #booking-page.modal .date-sec > ul > li .trips .trip span.book-btn:hover {
 	cursor: pointer;
 	color: #fff;

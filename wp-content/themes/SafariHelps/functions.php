@@ -7,6 +7,8 @@ add_filter('show_admin_bar', '__return_false');
 require_once get_template_directory().'/includes/enques.php';    
 require_once get_template_directory().'/includes/custom-posts.php'; 
 
+require get_template_directory() . '/includes/admin/functions/admin-functions.php';
+
 
 // Add all the theme support here
 function safarihelps_setup()

@@ -1,0 +1,14 @@
+.no_id {
+    height: 60vh;
+    width: 100%;
+    display: table;
+}
+.no_id_content {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.no_id_content .page-title-action {
+    top: 0 !important;
+}
